@@ -1,11 +1,12 @@
 from utils.env_wrapper import PendulumWrapper, LunarLanderContinuousWrapper, BipedalWalkerWrapper
+from utils.dmc_wrapper import WalkerWalkWrapper
 
 class train_params:
     
     # Environment parameters
     ENV = 'Pendulum-v0'                     # Environment to use (must have low dimensional state space (i.e. not image) and continuous action space)
     RENDER = False                          # Whether or not to display the environment on the screen during training
-    RANDOM_SEED = 99999999                  # Random seed for reproducability
+    RANDOM_SEED = 42                        # Random seed for reproducability
     NUM_AGENTS = 4                          # Number of distributed agents to run simultaneously
     
     # Create dummy environment to get all environment params
@@ -17,6 +18,8 @@ class train_params:
         dummy_env = BipedalWalkerWrapper()
     elif ENV == 'BipedalWalkerHardcore-v2':
         dummy_env = BipedalWalkerWrapper(hardcore=True)
+    elif ENV == 'walker_walk':
+        dummy_env = WalkerWalkWrapper()
     else:
         raise Exception('Chosen environment does not have an environment wrapper defined. Please choose an environment with an environment wrapper defined, or create a wrapper for this environment in utils.env_wrapper.py')
      
@@ -67,11 +70,11 @@ class test_params:
     # Environment parameters
     ENV = train_params.ENV                                  # Environment to use (must have low dimensional state space (i.e. not image) and continuous action space)
     RENDER = False                                          # Whether or not to display the environment on the screen during testing
-    RANDOM_SEED = 999999                                    # Random seed for reproducability
+    RANDOM_SEED = 42                                        # Random seed for reproducability
     
     # Testing parameters
-    NUM_EPS_TEST = 100                                      # Number of episodes to test for
-    MAX_EP_LENGTH = 10000                                   # Maximum number of steps per episode
+    NUM_EPS_TEST = 5                                        # Number of episodes to test for
+    MAX_EP_LENGTH = 500                                     # Maximum number of steps per episode
     
     # Files/directories
     CKPT_DIR = './ckpts/' + ENV                             # Directory for saving/loading checkpoints
@@ -84,7 +87,7 @@ class play_params:
    
     # Environment parameters
     ENV = train_params.ENV                                  # Environment to use (must have low dimensional state space (i.e. not image) and continuous action space)
-    RANDOM_SEED = 999999                                    # Random seed for reproducability
+    RANDOM_SEED = 42                                        # Random seed for reproducability
     
     # Play parameters
     NUM_EPS_PLAY = 5                                        # Number of episodes to play for

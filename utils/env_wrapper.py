@@ -4,7 +4,7 @@
 @author: Mark Sinton (msinto93@gmail.com) 
 '''
 
-import gym
+import gymnasium as gym
 
 class EnvWrapper:
     def __init__(self, env_name):

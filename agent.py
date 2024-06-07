@@ -16,6 +16,7 @@ import imageio
 from params import train_params, test_params, play_params
 from utils.network import Actor, Actor_BN
 from utils.env_wrapper import PendulumWrapper, LunarLanderContinuousWrapper, BipedalWalkerWrapper
+from utils.dmc_wrapper import WalkerWalkWrapper
 
 class Agent:
   
@@ -34,6 +35,8 @@ class Agent:
             self.env_wrapper = BipedalWalkerWrapper()
         elif env == 'BipedalWalkerHardcore-v2':
             self.env_wrapper = BipedalWalkerWrapper(hardcore=True)
+        elif env == 'walker-walk':
+            self.env_wrapper = WalkerWalkWrapper()
         else:
             raise Exception('Chosen environment does not have an environment wrapper defined. Please choose an environment with an environment wrapper defined, or create a wrapper for this environment in utils.env_wrapper.py')
         self.env_wrapper.set_random_seed(seed*(n_agent+1))
